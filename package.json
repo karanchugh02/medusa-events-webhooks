@@ -1,6 +1,6 @@
 {
   "name": "medusa-events-webhooks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A MedusaJS Plugin for inititating webhooks for particular events",
   "author": "Karan Chugh",
   "license": "MIT",
