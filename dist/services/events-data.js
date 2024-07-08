@@ -215,8 +215,6 @@ class EventsDataService extends medusa_1.TransactionBaseService {
         let customerData = await this.customerService_.retrieve(data.id, {
             relations: ["billing_address", "shipping_addresses"],
         });
-        console.log("customer data");
-        console.dir(customerData, { depth: null });
         return customerData;
     }
     async fetchData(event, data) {
