@@ -1,6 +1,6 @@
 {
   "name": "medusa-events-webhooks",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A MedusaJS Plugin for inititating webhooks for particular events which could be used in things like notification.",
   "author": "Karan Chugh",
   "license": "MIT",
@@ -37,7 +37,11 @@
     "cors": "^2.8.5",
     "dotenv": "16.3.1",
     "express": "^4.17.2",
-    "typeorm": "^0.3.16"
+    "typeorm": "^0.3.16",
+    "@medusajs/admin": "^7.1.10",
+    "@medusajs/admin-ui": "2.1.11",
+    "axios": "^1.6.7",
+    "prism-react-renderer": "^2.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",
@@ -45,8 +49,6 @@
     "@medusajs/event-bus-redis": "^1.8.13",
     "@babel/core": "^7.14.3",
     "@babel/preset-typescript": "^7.21.4",
-    "@medusajs/admin": "^7.1.10",
-    "@medusajs/admin-ui": "2.1.11",
     "@medusajs/event-bus-local": "^1.9.8",
     "@medusajs/medusa": "^1.20.7",
     "@medusajs/medusa-cli": "^1.3.14",
@@ -58,7 +60,6 @@
     "eslint": "^6.8.0",
     "jest": "^27.3.1",
     "medusa-interfaces": "^1.3.8",
-    "prism-react-renderer": "^2.0.4",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
