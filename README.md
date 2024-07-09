@@ -16,11 +16,46 @@ Install the plugin using npm:
 npm install medusa-events-webhooks
 ```
 
+## Plugin Options
+
+Add options for access secret and retry count in medusa-config.js
+
+```
+  {
+    resolve: `medusa-events-webhooks`,
+    options: {
+      enableUI: true,
+      TOKEN_SECRET: process.env.TOKEN_SECRET,
+      MAX_RETRY_COUNT: process.env.MAX_RETRY_COUNT,
+    },
+  }
+```
+
 ## Usage
 
 ##### Registering Webhooks
 
-To register a webhook, send a POST request to /custom/register-webhook with the following body:
+To add a webhook using the webhook events screen in the Medusa admin dashboard, follow these steps:
+
+###### 1. Add a Webhook
+
+- Use the webhook events screen in the admin dashboard to add a new webhook.
+- Upon creation, an access key will be generated.
+- This access key should be included in the headers of each webhook request.
+
+###### 2. Edit and Save Events
+
+- After creating the webhook, edit the events you want to trigger the webhook.
+- Save the selected events to ensure the webhook triggers correctly.
+
+###### 3. Active Flag
+
+- The `active` flag controls whether the webhook should be called.
+- Ensure this flag is set to `true` to enable webhook calls.
+
+##### or
+
+Send a POST request to /custom/register-webhook with the following body:
 
 ```
 {
@@ -56,6 +91,14 @@ Webhook calls will be made as POST requests with the following body structure:
 
 - **_event_**: The event that triggered the webhook.
 - **_data_**: The data associated with the event. The structure of this data will depend on the event type.
+
+headers would contain the api key as :
+
+```
+{
+  "X-API-KEY" : string
+}
+```
 
 ## Types
 

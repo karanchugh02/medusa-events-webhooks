@@ -1,7 +1,7 @@
 {
   "name": "medusa-events-webhooks",
-  "version": "1.0.3",
-  "description": "A MedusaJS Plugin for inititating webhooks for particular events",
+  "version": "1.0.4",
+  "description": "A MedusaJS Plugin for inititating webhooks for particular events which could be used in things like notification.",
   "author": "Karan Chugh",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,8 @@
     "headless",
     "medusa",
     "medusa-plugin",
-    "medusa-event-webhooks"
+    "medusa-event-webhooks",
+    "medusa-plugin-notification"
   ],
   "scripts": {
     "clean": "cross-env ./node_modules/.bin/rimraf dist",
