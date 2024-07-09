@@ -11,6 +11,8 @@ import {
   CustomerService,
   PaymentService,
 } from "@medusajs/medusa/dist/services";
+import EventWebhookService from "../services/event-webhook";
+import axios from "axios";
 
 export default async function orderEventsWebhookHandler({
   data,
@@ -22,23 +24,28 @@ export default async function orderEventsWebhookHandler({
   let eventsDataService: EventsDataService =
     container.resolve("eventsDataService");
 
+  let eventWebhookService: EventWebhookService = container.resolve(
+    "eventWebhookService"
+  );
   let parsedData = await eventsDataService.fetchData(eventName, data);
 
-  let webhooks = await eventWebhookRepo_.find({ where: {} });
-  webhooks = webhooks.filter((a) => a.event_types.includes(eventName));
+  let webhooks = await eventWebhookService.getAllWebhooks();
+  webhooks = webhooks.filter(
+    (a) => a.event_types.includes(eventName) && a.active
+  );
 
-  await Promise.all(
-    webhooks.map(async (wh) => {
-      let url = wh.webhook_url;
-      let res = await fetch(url, {
-        method: "POST",
+  webhooks.map((wh) => {
+    let url = wh.webhook_url;
+    axios
+      .post(url, JSON.stringify({ event: eventName, data: parsedData }), {
         headers: {
           "Content-Type": "application/json",
+          "X-ACCESS_KEY": wh.access_key,
         },
-        body: JSON.stringify({ event: eventName, data: parsedData }),
-      });
-    })
-  );
+      })
+      .then(() => {})
+      .catch((e) => {});
+  });
 
   return;
 }

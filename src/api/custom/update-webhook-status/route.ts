@@ -12,10 +12,11 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
     let eventWebhookService: EventWebhookService = req.scope.resolve(
       "eventWebhookService"
     );
-    let newWebhook = await eventWebhookService.create(req.body);
+    let data: any = req.body;
+    let newWebhook = await eventWebhookService.updateWebhookStatus(data);
     return res.status(200).json({ status: true, data: newWebhook });
   } catch (err) {
-    logger.error("Error authorizing google:", err);
+    logger.error("Error updating webhook status:", err);
     return res.status(500).json({ status: false, message: err.message });
   }
 };
