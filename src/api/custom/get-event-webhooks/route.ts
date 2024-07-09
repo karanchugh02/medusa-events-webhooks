@@ -10,9 +10,9 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
       "eventWebhookService"
     );
     let webhooks = await eventWebhookService.getAllWebhooks();
-    return res.status(200).json({ status: true, data: webhooks });
+    return res.send({ status: true, data: webhooks });
   } catch (err) {
     logger.error("Error authorizing google:", err);
-    return res.status(500).json({ status: false, message: err.message });
+    return res.send({ status: false, message: err.message });
   }
 };

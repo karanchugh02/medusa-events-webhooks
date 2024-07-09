@@ -52,6 +52,10 @@ const EventWebhooksPage = ({ notify }: RouteProps) => {
       setRefreshCount(refreshCount + 1);
       setWebhookModal({ opened: false, webhook_url: "" });
       notify.success("Webhook created", "Webhook created successfully");
+      navigator.clipboard.writeText(res.data.data.access_key);
+      window.alert(
+        `Access Key : ${res.data.data.access_key}     This key has been copied to clipboard. This won't be visible after dialog close`
+      );
     } else {
       notify.error("Failed", res.data.message);
     }

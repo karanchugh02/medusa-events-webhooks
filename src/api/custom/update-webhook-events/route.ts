@@ -14,9 +14,9 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
     );
     let data: any = req.body;
     let newWebhook = await eventWebhookService.updateWebhookEvents(data);
-    return res.status(200).json({ status: true, data: newWebhook });
+    return res.send({ status: true, data: newWebhook });
   } catch (err) {
     logger.error("Error updating webhook events:", err);
-    return res.status(500).json({ status: false, message: err.message });
+    return res.send({ status: false, message: err.message });
   }
 };

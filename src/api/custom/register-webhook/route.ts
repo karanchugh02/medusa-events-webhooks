@@ -13,9 +13,9 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
       "eventWebhookService"
     );
     let newWebhook = await eventWebhookService.create(req.body);
-    return res.status(200).json({ status: true, data: newWebhook });
+    return res.send({ status: true, data: newWebhook });
   } catch (err) {
     logger.error("Error authorizing google:", err);
-    return res.status(500).json({ status: false, message: err.message });
+    return res.send({ status: false, message: err.message });
   }
 };

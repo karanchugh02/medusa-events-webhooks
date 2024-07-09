@@ -7,12 +7,13 @@ import { Repository } from "typeorm";
 class EventWebhookService extends TransactionBaseService {
   static identifier = "eventWebhookService";
   static LIFE_TIME = Lifetime.SCOPED;
-
+  protected TOKEN_SECRET = "default";
   protected readonly eventWebhookRepository_: Repository<EventWebhooks>;
-  constructor() {
+  constructor(container, options) {
     super(arguments[0]);
     this.eventWebhookRepository_ =
       this.activeManager_.getRepository(EventWebhooks);
+    this.TOKEN_SECRET = options.TOKEN_SECRET;
   }
 
   async create(data) {
@@ -20,7 +21,9 @@ class EventWebhookService extends TransactionBaseService {
       this.eventWebhookRepository_.create({
         webhook_url: data.webhook_url,
         event_types: data.event_types,
-        access_key: createHash("sha256").update(data.webhook_url).digest("hex"),
+        access_key: createHash("sha256")
+          .update(`${data.webhook_url}${this.TOKEN_SECRET}`)
+          .digest("hex"),
       })
     );
 
