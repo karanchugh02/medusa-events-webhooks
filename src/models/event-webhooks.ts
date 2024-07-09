@@ -15,11 +15,17 @@ export default class EventWebhooks {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", nullable: false })
+  @Column({ type: "varchar", nullable: false, unique: true })
   webhook_url: string;
 
   @Column({ type: "json", nullable: false, default: [] })
   event_types: string[];
+
+  @Column({ type: "boolean", nullable: false, default: true })
+  active: boolean;
+
+  @Column({ type: "varchar" })
+  access_key: string;
 
   @CreateDateColumn({ type: "timestamptz" })
   created_at: Date;
