@@ -31,6 +31,12 @@ Add options for access secret and retry count in medusa-config.js
   }
 ```
 
+## Migrations
+
+```
+npx medusa migrations run
+```
+
 ## Usage
 
 ##### Registering Webhooks
