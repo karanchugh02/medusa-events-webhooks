@@ -1,7 +1,10 @@
 import { Logger, MedusaRequest, MedusaResponse } from "@medusajs/medusa";
-import EventWebhookService from "../../../services/event-webhook";
+import { EntityManager } from "typeorm";
+import EventWebhooks from "../../../../models/event-webhooks";
+import { createHash } from "crypto";
+import EventWebhookService from "../../../../services/event-webhook";
 
-export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
+export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   const logger = req.scope.resolve("logger") as Logger;
 
   try {
@@ -9,8 +12,8 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
     let eventWebhookService: EventWebhookService = req.scope.resolve(
       "eventWebhookService"
     );
-    let webhooks = await eventWebhookService.getAllWebhooks();
-    return res.send({ status: true, data: webhooks });
+    let newWebhook = await eventWebhookService.create(req.body);
+    return res.send({ status: true, data: newWebhook });
   } catch (err) {
     logger.error("Error authorizing google:", err);
     return res.send({ status: false, message: err.message });

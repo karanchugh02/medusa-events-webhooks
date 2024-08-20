@@ -30,6 +30,8 @@ const allEvents = [
   "customer.password_reset",
   "customer.created",
   "customer.updated",
+
+  ...(process.env.MEDUSA_ADMIN_CUSTOM_EVENTS?.split(",") || []),
 ];
 
 const groupEventsByOuter = (events) => {
@@ -76,9 +78,9 @@ const EventWebhooksModal = ({
 
   const onSave = async () => {
     let res = await axios.post(
-      `${process.env.MEDUSA_ADMIN_BACKEND_URL}/custom/update-webhook-events`,
+      `${process.env.MEDUSA_ADMIN_BACKEND_URL}/admin/custom/update-webhook-events`,
       { id, event_types: selectedEvents },
-      { headers: { "Content-type": "application/json" } }
+      { headers: { "Content-type": "application/json" }, withCredentials: true }
     );
 
     if (res.data.status == true) {

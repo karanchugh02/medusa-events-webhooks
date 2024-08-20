@@ -1,8 +1,8 @@
 import { Logger, MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import { EntityManager } from "typeorm";
-import EventWebhooks from "../../../models/event-webhooks";
+import EventWebhooks from "../../../../models/event-webhooks";
 import { createHash } from "crypto";
-import EventWebhookService from "../../../services/event-webhook";
+import EventWebhookService from "../../../../services/event-webhook";
 
 export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   const logger = req.scope.resolve("logger") as Logger;

@@ -21,10 +21,16 @@ const EventWebhooksPage = ({ notify }: RouteProps) => {
       await axios.post(
         `${
           process.env.MEDUSA_ADMIN_BACKEND_URL || ""
-        }/custom/update-webhook-status`,
+        }/admin/custom/update-webhook-status`,
         {
           id,
           active: isActive,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+          },
+          withCredentials: true,
         }
       );
       setWebhooks((prevWebhooks) =>
@@ -41,10 +47,18 @@ const EventWebhooksPage = ({ notify }: RouteProps) => {
 
   const handleWebhookSave = async () => {
     let res = await axios.post(
-      `${process.env.MEDUSA_ADMIN_BACKEND_URL || ""}/custom/register-webhook`,
+      `${
+        process.env.MEDUSA_ADMIN_BACKEND_URL || ""
+      }/admin/custom/register-webhook`,
       {
         webhook_url: webhookModal.webhook_url,
         event_types: [],
+      },
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+        withCredentials: true,
       }
     );
 
@@ -67,7 +81,7 @@ const EventWebhooksPage = ({ notify }: RouteProps) => {
         const response = await axios.get(
           `${
             process.env.MEDUSA_ADMIN_BACKEND_URL || ""
-          }/custom/get-event-webhooks`,
+          }/admin/custom/get-event-webhooks`,
           { withCredentials: true }
         );
         setWebhooks(response.data.data);

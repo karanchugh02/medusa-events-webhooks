@@ -12,6 +12,8 @@ import {
 import EventWebhookService from "../services/event-webhook";
 import axios from "axios";
 import retry from "async-retry";
+import dotenv from "dotenv";
+dotenv.config();
 
 const totalTimeout = 3600000;
 
@@ -88,6 +90,7 @@ export const config: SubscriberConfig = {
     ...Object.values(CartService.Events),
     ...Object.values(PaymentService.Events),
     ...Object.values(CustomerService.Events),
+    ...(process.env.MEDUSA_ADMIN_CUSTOM_EVENTS?.split(",") || []),
   ],
   context: {
     subscriberId: "events-webhook",
